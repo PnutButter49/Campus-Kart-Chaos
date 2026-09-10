@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <meta name="theme-color" content="#111827" />
+  <title>Campus Kart Chaos</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <main id="app">
+    <section id="menu" class="screen active hero-screen">
+      <div class="hero-art" aria-hidden="true">
+        <div class="road road-a"></div><div class="road road-b"></div>
+        <div class="kart k1">🏎️</div><div class="kart k2">🛺</div><div class="kart k3">🏁</div>
+      </div>
+      <div class="hero-copy">
+        <p class="eyebrow">ORIGINAL ARCADE RACER</p>
+        <h1>CAMPUS<br><span>KART CHAOS</span></h1>
+        <p class="tagline">Race to graduation. Survive everything in between.</p>
+        <div class="menu-grid">
+          <button id="cupBtn" class="primary">CAMPUS CUP</button>
+          <button id="quickBtn">QUICK RACE</button>
+          <button id="onlineBtn" class="online">ONLINE RACE <span>LIVE</span></button>
+          <button id="trialBtn">TIME TRIAL</button>
+          <button id="continueBtn">CONTINUE</button>
+          <button id="leaderBtn">LEADERBOARD</button>
+          <button id="howBtn">HOW TO PLAY</button>
+          <button id="settingsBtn">SETTINGS</button>
+        </div>
+        <p id="saveStatus" class="subtle"></p>
+      </div>
+    </section>
+
+    <section id="profile" class="screen panel-screen">
+      <div class="panel narrow">
+        <button class="back icon-btn" aria-label="Back">←</button>
+        <p class="eyebrow">DRIVER REGISTRATION</p>
+        <h2>Pick your campus legend</h2>
+        <form id="profileForm">
+          <label>Racer nickname<input id="nickname" maxlength="18" autocomplete="off" placeholder="SpeedScholar" required /></label>
+          <label>Difficulty<select id="difficulty"><option value="freshman">Freshman</option><option value="junior" selected>Junior</option><option value="senior">Senior</option></select></label>
+          <div id="racerGrid" class="racer-grid"></div>
+          <p id="profileError" class="error" role="alert"></p>
+          <button class="primary wide" type="submit">START YOUR ENGINES</button>
+        </form>
+      </div>
+    </section>
+
+    <section id="trackSelect" class="screen panel-screen">
+      <div class="panel wide-panel">
+        <button class="back icon-btn" aria-label="Back">←</button>
+        <p class="eyebrow" id="trackModeLabel">QUICK RACE</p>
+        <h2>Choose a course</h2>
+        <div id="trackGrid" class="track-grid"></div>
+      </div>
+    </section>
+
+    <section id="online" class="screen panel-screen">
+      <div class="panel narrow">
+        <button class="back icon-btn" aria-label="Back">←</button>
+        <p class="eyebrow">ONLINE MULTIPLAYER</p>
+        <h2>Race your classmates</h2>
+        <p class="subtle">2–4 players. No account or email required.</p>
+        <label>Racer nickname<input id="onlineName" maxlength="18" autocomplete="off" placeholder="LateAgain" /></label>
+        <div class="split-actions">
+          <button id="createRoomBtn" class="primary">CREATE ROOM</button>
+          <button id="showJoinBtn">JOIN ROOM</button>
+        </div>
+        <div id="joinBox" class="join-box hidden">
+          <label>Room code<input id="roomCodeInput" maxlength="6" autocomplete="off" placeholder="KART42" /></label>
+          <button id="joinRoomBtn" class="primary wide">JOIN</button>
+        </div>
+        <p id="onlineError" class="error" role="alert"></p>
+      </div>
+    </section>
+
+    <section id="lobby" class="screen panel-screen">
+      <div class="panel wide-panel lobby-panel">
+        <div class="lobby-head">
+          <div><p class="eyebrow">ONLINE LOBBY</p><h2>ROOM <span id="roomCodeLabel"></span></h2></div>
+          <button id="leaveRoomBtn">LEAVE</button>
+        </div>
+        <div class="lobby-layout">
+          <div>
+            <h3>Racers</h3>
+            <div id="lobbyPlayers" class="lobby-players"></div>
+          </div>
+          <div class="lobby-controls">
+            <label>Track<select id="lobbyTrack"></select></label>
+            <label>Racer<select id="lobbyRacer"></select></label>
+            <button id="readyBtn" class="primary">I'M READY</button>
+            <button id="hostStartBtn" class="accent" disabled>HOST: START RACE</button>
+            <p id="lobbyHint" class="subtle">Share the room code with classmates.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="leaderboard" class="screen panel-screen">
+      <div class="panel wide-panel">
+        <button class="back icon-btn" aria-label="Back">←</button>
+        <p class="eyebrow">ONLINE LEADERBOARDS</p>
+        <h2>Campus legends</h2>
+        <div class="tabs"><button data-board="cup" class="active">CAMPUS CUP</button><button data-board="trial">TIME TRIALS</button></div>
+        <label id="trialTrackWrap" class="hidden">Track<select id="trialTrackFilter"></select></label>
+        <p id="boardStatus" class="subtle"></p>
+        <div class="table-wrap"><table><thead id="boardHead"></thead><tbody id="boardBody"></tbody></table></div>
+      </div>
+    </section>
+
+    <section id="how" class="screen panel-screen">
+      <div class="panel wide-panel">
+        <button class="back icon-btn" aria-label="Back">←</button>
+        <p class="eyebrow">DRIVER'S ED, BUT FUN</p>
+        <h2>How to play</h2>
+        <div class="how-grid">
+          <article><h3>Drive</h3><p><kbd>W</kbd>/<kbd>↑</kbd> accelerate<br><kbd>S</kbd>/<kbd>↓</kbd> brake & reverse<br><kbd>A</kbd>/<kbd>←</kbd> steer left<br><kbd>D</kbd>/<kbd>→</kbd> steer right</p></article>
+          <article><h3>Drift</h3><p>Hold <kbd>SPACE</kbd> while turning. Build sparks, release for a boost. Longer clean drifts give stronger boosts.</p></article>
+          <article><h3>Items</h3><p>Drive through glowing item boxes. Press <kbd>E</kbd> to use your item. Comeback items are stronger when you're behind.</p></article>
+          <article><h3>Pause</h3><p><kbd>P</kbd> pauses offline races. Online races continue live, so P only opens the race menu.</p></article>
+        </div>
+        <h3>Power-ups</h3><div id="itemGuide" class="item-guide"></div>
+      </div>
+    </section>
+
+    <section id="settings" class="screen panel-screen">
+      <div class="panel narrow">
+        <button class="back icon-btn" aria-label="Back">←</button>
+        <p class="eyebrow">GARAGE SETTINGS</p><h2>Tune the experience</h2>
+        <label class="switch"><input id="soundSetting" type="checkbox" /> Sound</label>
+        <label class="switch"><input id="shakeSetting" type="checkbox" /> Collision screen shake</label>
+        <label class="switch"><input id="motionSetting" type="checkbox" /> Reduce visual effects</label>
+      </div>
+    </section>
+
+    <section id="race" class="screen race-screen">
+      <div class="hud top-hud">
+        <div class="hud-chip"><small>POSITION</small><strong id="positionText">1/4</strong></div>
+        <div class="hud-chip"><small>LAP</small><strong id="lapText">1/3</strong></div>
+        <div class="hud-chip center"><small id="trackNameHud">CAMPUS LOOP</small><strong id="timerText">0:00.000</strong></div>
+        <div class="hud-chip"><small>SPEED</small><strong><span id="speedText">0</span> mph</strong></div>
+        <div class="hud-chip"><small>ITEM</small><strong id="itemText">—</strong></div>
+      </div>
+      <div id="raceCanvasWrap" class="canvas-wrap">
+        <canvas id="gameCanvas" width="1200" height="760" aria-label="Campus Kart Chaos race"></canvas>
+        <div id="countdown" class="countdown"></div>
+        <div id="raceMessage" class="race-message"></div>
+        <div id="pauseOverlay" class="pause-overlay hidden"><div><h2 id="pauseTitle">PAUSED</h2><button id="resumeBtn" class="primary">RESUME</button><button id="restartRaceBtn">RESTART</button><button id="quitRaceBtn">QUIT RACE</button></div></div>
+      </div>
+      <div class="race-actions"><button id="pauseRaceBtn">PAUSE</button><button id="soundToggle" aria-label="Toggle sound">🔊</button></div>
+      <div class="mobile-controls" aria-label="Touch controls">
+        <button data-control="left">◀</button><button data-control="right">▶</button><button data-control="drift">DRIFT</button><button data-control="brake">BRAKE</button><button data-control="gas" class="gas">GAS</button><button data-control="item" class="item">ITEM</button>
+      </div>
+    </section>
+
+    <section id="result" class="screen panel-screen">
+      <div class="panel result-panel">
+        <p class="eyebrow" id="resultEyebrow">RACE COMPLETE</p>
+        <h2 id="resultTitle">1ST PLACE!</h2>
+        <p id="resultQuote" class="quote"></p>
+        <div id="resultStats" class="stats"></div>
+        <div id="unlockBox" class="unlock-box hidden"></div>
+        <div class="split-actions"><button id="resultNext" class="primary">CONTINUE</button><button id="resultMenu">MAIN MENU</button></div>
+      </div>
+    </section>
+  </main>
+  <script type="module" src="game.js"></script>
+</body>
+</html>
